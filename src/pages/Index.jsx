@@ -3,8 +3,6 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import ShapeControls from "@/components/ShapeControls";
 import ShapePreview from "@/components/ShapePreview";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowRight, Wand2, Palette, Shapes, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,7 +26,7 @@ const Index = () => {
     shadowOffsetY: 5,
     shadowColor: "rgba(0, 0, 0, 0.3)",
     // Text-specific settings
-    text: "CSS Colorista",
+    text: "CSS Art",  
     fontSize: 24,
     fontWeight: 600,
     lineHeight: 1.5,
@@ -83,10 +81,10 @@ const Index = () => {
         <div className="container py-6 px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-creator-purple to-creator-teal bg-clip-text text-transparent">
-              CSS Colorista
+              CSS Art Generator
             </h1>
             <p className="text-lg text-muted-foreground mb-6">
-              Create beautiful CSS shapes and gradients with an interactive generator
+              Create beautiful CSS shapes, text and gradients for your projects.
             </p>
             <div className="flex items-center justify-center gap-3">
               <Wand2 className="w-5 h-5 text-creator-purple animate-pulse-slow" />
@@ -132,11 +130,9 @@ const Index = () => {
       
       <footer className="border-t py-6">
         <div className="container text-center text-sm text-muted-foreground">
-          CSS Colorista — Create beautiful CSS shapes with ease
         </div>
       </footer>
     </div>
   );
 };
-
 export default Index;

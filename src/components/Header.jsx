@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Palette, Code, Github } from "lucide-react";
 
@@ -9,7 +9,7 @@ const Header = () => {
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Palette className="h-6 w-6 text-creator-purple" />
-          <h1 className="text-xl font-bold">CSS Colorista</h1>
+          <h1 className="text-xl font-bold">CSS Art Generator</h1>
         </div>
         
         <div className="flex items-center gap-4">

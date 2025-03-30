@@ -2,6 +2,7 @@
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import ColorPicker from "./ColorPicker";
 
 const ShapeControls = ({ settings, onSettingsChange }) => {
@@ -26,6 +27,13 @@ const ShapeControls = ({ settings, onSettingsChange }) => {
     });
   };
 
+  const handleTextChange = (e) => {
+    onSettingsChange({
+      ...settings,
+      text: e.target.value,
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -43,10 +51,24 @@ const ShapeControls = ({ settings, onSettingsChange }) => {
                   <SelectItem value="square">Square</SelectItem>
                   <SelectItem value="rectangle">Rectangle</SelectItem>
                   <SelectItem value="triangle">Triangle</SelectItem>
+                  <SelectItem value="text">Text</SelectItem>
+                  <SelectItem value="random">Random Shape</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
+
+          {settings.shapeType === "text" && (
+            <div className="space-y-2">
+              <Label>Text Content</Label>
+              <Textarea 
+                value={settings.text} 
+                onChange={handleTextChange}
+                placeholder="Enter your text here"
+                className="min-h-[80px]"
+              />
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label>Width ({settings.width}px)</Label>
@@ -72,7 +94,7 @@ const ShapeControls = ({ settings, onSettingsChange }) => {
             </div>
           )}
 
-          {(settings.shapeType === "circle" || settings.shapeType === "square") && (
+          {(settings.shapeType === "square" || settings.shapeType === "rectangle" || settings.shapeType === "text") && (
             <div className="space-y-2">
               <Label>Border Radius ({settings.borderRadius}px)</Label>
               <Slider 
@@ -97,6 +119,63 @@ const ShapeControls = ({ settings, onSettingsChange }) => {
           </div>
         </div>
       </div>
+
+      {settings.shapeType === "text" && (
+        <div>
+          <h3 className="text-lg font-medium mb-4">Text Style</h3>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Font Size ({settings.fontSize}px)</Label>
+              <Slider 
+                value={[settings.fontSize]} 
+                min={8} 
+                max={72} 
+                step={1}
+                onValueChange={(value) => handleSliderChange("fontSize", value)} 
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label>Font Weight ({settings.fontWeight})</Label>
+              <Slider 
+                value={[settings.fontWeight]} 
+                min={100} 
+                max={900} 
+                step={100}
+                onValueChange={(value) => handleSliderChange("fontWeight", value)} 
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Line Height ({settings.lineHeight})</Label>
+              <Slider 
+                value={[settings.lineHeight]} 
+                min={0.5} 
+                max={3} 
+                step={0.1}
+                onValueChange={(value) => handleSliderChange("lineHeight", value)} 
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>Letter Spacing ({settings.letterSpacing}px)</Label>
+              <Slider 
+                value={[settings.letterSpacing]} 
+                min={-5} 
+                max={20} 
+                step={0.5}
+                onValueChange={(value) => handleSliderChange("letterSpacing", value)} 
+              />
+            </div>
+            
+            <ColorPicker 
+              label="Text Color"
+              color={settings.textColor}
+              onChange={(color) => handleColorChange("textColor", color)}
+            />
+          </div>
+        </div>
+      )}
 
       <div>
         <h3 className="text-lg font-medium mb-4">Style</h3>

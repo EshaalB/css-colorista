@@ -27,13 +27,24 @@ const ShapePreview = ({ settings }) => {
     let borderRadius = "0";
     if (settings.shapeType === "circle") {
       borderRadius = "50%";
-    } else if (settings.shapeType === "square" || settings.shapeType === "rectangle") {
+    } else if (settings.shapeType === "square" || settings.shapeType === "rectangle" || settings.shapeType === "text") {
       borderRadius = `${settings.borderRadius}px`;
     }
 
     let clipPath = "";
     if (settings.shapeType === "triangle") {
       clipPath = "polygon(50% 0%, 0% 100%, 100% 100%)";
+      borderRadius = "0";
+    } else if (settings.shapeType === "random") {
+      const randomPoints = [
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`
+      ];
+      clipPath = `polygon(${randomPoints.join(', ')})`;
       borderRadius = "0";
     }
 
@@ -44,7 +55,27 @@ const ShapePreview = ({ settings }) => {
       boxShadow = `${settings.shadowOffsetX}px ${settings.shadowOffsetY}px ${settings.shadowBlur}px ${settings.shadowSize}px ${settings.shadowColor}`;
     }
 
-    const css = `.shape {
+    let css = "";
+    
+    if (settings.shapeType === "text") {
+      css = `.text-shape {
+  color: ${settings.textColor};
+  font-size: ${settings.fontSize}px;
+  font-weight: ${settings.fontWeight};
+  line-height: ${settings.lineHeight};
+  letter-spacing: ${settings.letterSpacing}px;
+  padding: 20px;
+  background: ${background};
+  border: ${settings.borderWidth}px solid ${settings.borderColor};
+  border-radius: ${borderRadius};
+  transform: ${transform};
+  box-shadow: ${boxShadow};
+  width: ${width};
+  text-align: center;
+  overflow-wrap: break-word;
+}`;
+    } else {
+      css = `.shape {
   width: ${width};
   height: ${height};
   background: ${background};
@@ -54,6 +85,7 @@ const ShapePreview = ({ settings }) => {
   transform: ${transform};
   box-shadow: ${boxShadow};
 }`;
+    }
 
     setCssCode(css);
   };
@@ -85,6 +117,30 @@ const ShapePreview = ({ settings }) => {
     } else if (settings.shapeType === "triangle") {
       style.clipPath = "polygon(50% 0%, 0% 100%, 100% 100%)";
       style.height = `${settings.width}px`;
+    } else if (settings.shapeType === "random") {
+      const randomPoints = [
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`,
+        `${Math.random() * 100}% ${Math.random() * 100}%`
+      ];
+      style.clipPath = `polygon(${randomPoints.join(', ')})`;
+      style.height = `${settings.width}px`;
+    } else if (settings.shapeType === "text") {
+      style = {
+        ...style,
+        color: settings.textColor,
+        fontSize: `${settings.fontSize}px`,
+        fontWeight: settings.fontWeight,
+        lineHeight: settings.lineHeight,
+        letterSpacing: `${settings.letterSpacing}px`,
+        padding: '20px',
+        textAlign: 'center',
+        borderRadius: `${settings.borderRadius}px`,
+        overflowWrap: 'break-word',
+      };
     }
 
     return style;
@@ -114,7 +170,13 @@ const ShapePreview = ({ settings }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 p-6 preview-grid flex items-center justify-center overflow-hidden">
-        <div className="shape" style={getShapeStyle()}></div>
+        {settings.shapeType === "text" ? (
+          <div className="text-shape" style={getShapeStyle()}>
+            {settings.text || "Your text here"}
+          </div>
+        ) : (
+          <div className="shape" style={getShapeStyle()}></div>
+        )}
       </div>
       
       <div className="p-6 border-t bg-muted/50">

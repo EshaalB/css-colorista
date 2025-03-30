@@ -27,12 +27,20 @@ const Index = () => {
     shadowOffsetX: 5,
     shadowOffsetY: 5,
     shadowColor: "rgba(0, 0, 0, 0.3)",
+    // Text-specific settings
+    text: "CSS Colorista",
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: 1.5,
+    letterSpacing: 0,
+    textColor: "#FFFFFF",
   });
 
   const randomizeSettings = () => {
-    const shapeTypes = ["circle", "square", "rectangle", "triangle"];
+    const shapeTypes = ["circle", "square", "rectangle", "triangle", "text", "random"];
     const fillTypes = ["solid", "linear-gradient", "radial-gradient"];
     const colors = ["#8B5CF6", "#0EA5E9", "#EC4899", "#F97316", "#10B981", "#F43F5E", "#6366F1"];
+    const textOptions = ["CSS Art", "Colorista", "Beautiful Shapes", "Awesome CSS", "Web Design", "Creative CSS"];
     
     const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
     const randomBetween = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
@@ -55,6 +63,13 @@ const Index = () => {
       shadowOffsetX: randomBetween(-20, 20),
       shadowOffsetY: randomBetween(-20, 20),
       shadowColor: `rgba(0, 0, 0, ${randomBetween(1, 9) / 10})`,
+      // Text-specific randomizations
+      text: textOptions[Math.floor(Math.random() * textOptions.length)],
+      fontSize: randomBetween(12, 48),
+      fontWeight: [300, 400, 500, 600, 700, 800][randomBetween(0, 5)],
+      lineHeight: randomBetween(10, 20) / 10,
+      letterSpacing: randomBetween(-3, 10),
+      textColor: randomColor(),
     };
     
     setSettings(newSettings);

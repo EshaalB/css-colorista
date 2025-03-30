@@ -1,14 +1,14 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { PaintBrush, Code, Github } from "lucide-react";
+import { Palette, Code, Github } from "lucide-react";
 
 const Header = () => {
   return (
     <header className="border-b">
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <PaintBrush className="h-6 w-6 text-creator-purple" />
+          <Palette className="h-6 w-6 text-creator-purple" />
           <h1 className="text-xl font-bold">CSS Colorista</h1>
         </div>
         
